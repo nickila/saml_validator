@@ -1,1 +1,1 @@
-web: python file_upload.py runserver 0.0.0.0:5000
+web: python app:file_upload.py runserver 0.0.0.0:5000
