@@ -1,4 +1,3 @@
-#import pandas as pd
 
 def saml_analysis(doc):
     errors = False
