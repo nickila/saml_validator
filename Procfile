@@ -1,1 +1,1 @@
-web: gunicorn tz_lister:file_upload
+web: gunicorn file_upload:app
