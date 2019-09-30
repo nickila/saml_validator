@@ -1,1 +1,1 @@
-worker: python file_upload.py runserver 0.0.0.0
+web: python file_upload.py runserver 0.0.0.0
