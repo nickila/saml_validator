@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import xmltodict
 from web_saml_validator import saml_analysis
 
@@ -14,7 +14,7 @@ def welcome():
 def upload():
     analysis = saml_analysis(xmltodict.parse(request.files['saml_file'].read().decode()))
 
-    return analysis
+    return jsonify(analysis)
 
 
 if __name__ == '__main__':
