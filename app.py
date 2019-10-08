@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import xmltodict
-from saml_validation import saml_analysis
+from saml_validation import parse_saml, analyze
+from idp import IDP
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -14,9 +15,11 @@ def welcome():
 def upload():
     idp_name = request.values['idp_name']
     saml_dict = xmltodict.parse(request.files['saml_file'].read().decode())
-    analysis = saml_analysis(saml_dict, idp_name)
+    saml_values = parse_saml(saml_dict)
+    idp_info = IDP.get_idp_info(idp_name) if idp_name != 'other' else None
+    result = analyze(saml_values, idp_info)
 
-    return jsonify(analysis)
+    return jsonify(result.values)
 
 
 if __name__ == '__main__':
