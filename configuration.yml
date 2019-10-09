@@ -1,0 +1,80 @@
+adfs:
+  name: 'adfs'
+  helpx: 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html'
+  error_codes:
+    assertion_attributes:
+      hint: 'Review Steps 8 - 14'
+      link: '#ConfiguretheADFSserver'
+    name_id:
+      hint: 'Please review step 11'
+      link: '#ConfiguretheADFSserver'
+    name_id_format:
+      hint: 'Please review step 11'
+      link: '#ConfiguretheADFSserver'
+    issuer_url:
+      hint: 'Please review step 2'
+      link: '#ConfiguretheADFSserver'
+    destination:
+      hint: 'Please review step 2'
+      link: '#ConfiguretheADFSserver'
+    signature_method:
+      hint: 'Please review step 16'
+      link: '#ConfiguretheADFSserver'
+    digest_method:
+      hint: 'Please review step 16'
+      link: '#ConfiguretheADFSserver'
+shibboleth:
+  name: 'shibboleth'
+  helpx: 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html'
+  error_codes:
+    assertion_attributes:
+      hint: 'please review step 2 link 1 and step 1 from link2'
+      link:
+        - '#ConfigureShibboleth'
+        - '#TroubleshootyourShibbolethsetup'
+    name_id:
+      hint: 'Please review step 11'
+      link: '#TroubleshootyourShibbolethsetup'
+    name_id_format:
+      hint: 'please review step 2 from link 1 and step 8 from link2'
+      link:
+        - '#ConfigureShibboleth'
+        - '#TroubleshootyourShibbolethsetup'
+    issuer_url:
+      hint: 'Please review step 3'
+      link: '#ConfigureShibboleth'
+    destination:
+      hint: 'Please review step 3'
+      link: '#ConfigureShibboleth'
+#    signature_method:
+#      hint:
+#      link:
+#    digest_method:
+#      hint:
+#      link:
+azure:
+  name: 'azure'
+  helpx: 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html'
+  error_codes:
+    assertion_attributes:
+      hint: 'Review Steps 8 - 14'
+      link: '#ConfiguretheADFSserver'
+    name_id:
+      hint: 'Please review step 11'
+      link: '#ConfiguretheADFSserver'
+    name_id_format:
+      hint:
+      link:
+    issuer_url:
+      hint:
+      link:
+    destination:
+      hint:
+      link:
+    signature_method:
+      hint:
+      link:
+    digest_method:
+      hint:
+      link:
+
