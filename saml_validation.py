@@ -1,6 +1,7 @@
 from saml_result import SamlResult
 from descriptions import Descriptions
 
+
 def parse_saml(dict_saml_trace):
     saml_trace_values = {}
     key = 'saml2' if '2' in list(dict_saml_trace.keys())[0] else 'saml'
@@ -28,9 +29,7 @@ def parse_saml(dict_saml_trace):
         dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Subject'][key + ':NameID']['@Format']
     except:
         saml_trace_values['name_id_format'] = None
-    # ACS Url aka Reply URL, Location value from adobe metadata
     saml_trace_values['destination'] = dict_saml_trace[key + 'p:Response']['@Destination']
-    # Issuer URL, Entity ID from adobe metadata
     saml_trace_values['issuer_url'] = \
     dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Conditions'][key + ':AudienceRestriction'][
         key + ':Audience']

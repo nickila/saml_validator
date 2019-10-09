@@ -1,10 +1,10 @@
 class SamlResult:
     def __init__(self, analysis_values, descriptions, errors=None):
-        self.values = self.construct_result(analysis_values, descriptions, errors)
+        self.result = self.construct_result(analysis_values, descriptions, errors)
 
     def construct_result(self, analysis_values, descriptions, errors):
         result = {}
-        result['errors_found'] = {}
+        #result['errors_found'] = {}
         for each in analysis_values:
             result[each] = {}
             result[each]['value'] = analysis_values[each]

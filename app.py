@@ -5,6 +5,8 @@ from idp import IDP
 
 app = Flask(__name__, instance_relative_config=True)
 
+# from werkzeug.debug import DebuggedApplication
+# appx = DebuggedApplication(app, evalex=True)
 
 @app.route('/')
 def welcome():
@@ -19,7 +21,7 @@ def upload():
     idp_info = IDP.get_idp_info(idp_name) if idp_name != 'other' else None
     result = analyze(saml_values, idp_info)
 
-    return jsonify(result.values)
+    return jsonify(result.result)
 
 
 if __name__ == '__main__':
