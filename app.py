@@ -7,9 +7,12 @@ app = Flask(__name__, instance_relative_config=True)
 
 # from werkzeug.debug import DebuggedApplication
 # appx = DebuggedApplication(app, evalex=True)
-with open('configuration.yml') as file:
-    idp_repo = yaml.safe_load(file)
-
+with open('configurations/idp.yml') as c_file:
+    idp_repo = yaml.safe_load(c_file)
+    c_file.close()
+with open('configurations/descriptions.yml') as d_file:
+    descriptions = yaml.safe_load(d_file)
+    d_file.close()
 
 @app.route('/')
 def welcome():
@@ -22,7 +25,7 @@ def upload():
     saml_dict = xmltodict.parse(request.files['saml_file'].read().decode())
     saml_values = parse_saml(saml_dict)
     idp_info = idp_repo.get(idp_name, None)
-    result = analyze(saml_values, idp_info)
+    result = analyze(saml_values, descriptions, idp_info)
 
     return jsonify(result)
 

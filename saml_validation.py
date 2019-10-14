@@ -1,5 +1,4 @@
 from saml_result import SamlResult
-from descriptions import Descriptions
 
 
 def parse_saml(dict_saml_trace):
@@ -52,7 +51,7 @@ def parse_saml(dict_saml_trace):
     return saml_trace_values
 
 
-def analyze(saml_values, idp_info=None):
+def analyze(saml_values, descriptions, idp_info=None):
     errors = {}
     if not saml_values['assertion_attributes']:
         errors['no_attributes'] = idp_info['error_codes']['assertion_attributes'] if idp_info \
@@ -78,6 +77,4 @@ def analyze(saml_values, idp_info=None):
         errors['signing_cert'] = idp_info['error_codes']['signing_cert'] if idp_info \
             else {'description': 'Signing cert not present'}
         errors['signing_cert']['description'] = 'Signing cert not present'
-
-    descriptions = Descriptions.get_descriptions()
     return SamlResult.construct_result(saml_values, descriptions, errors)
