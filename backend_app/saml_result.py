@@ -1,10 +1,10 @@
 class SamlResult:
     @classmethod
-    def construct_result(cls, analysis_values, descriptions, errors=None):
+    def construct_result(cls, saml_values, descriptions, errors=None):
         result = {}
-        for each in analysis_values:
+        for each in saml_values:
             result[each] = {}
-            result[each]['value'] = analysis_values[each]
+            result[each]['value'] = saml_values[each]
             if descriptions.get(each):
                 result[each]['description'] = descriptions[each]
             if errors.get(each):
