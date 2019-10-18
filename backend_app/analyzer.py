@@ -4,9 +4,8 @@ from backend_app.saml_result import SamlResult
 class Analyzer:
     @classmethod
     def process(cls, saml_dict, descriptions, idp_info=None):
-
         saml_values = cls.parse_saml(saml_dict)
-        cls.analyze(saml_values, descriptions, idp_info)
+        return cls.analyze(saml_values, descriptions, idp_info)
 
     @classmethod
     def parse_saml(cls, dict_saml_trace):
@@ -60,7 +59,7 @@ class Analyzer:
         return saml_trace_values
 
     @classmethod
-    def analyze(self, saml_values, descriptions, idp_info=None):
+    def analyze(cls, saml_values, descriptions, idp_info=None):
         errors = {}
         if not saml_values['assertion_attributes']:
             errors['no_attributes'] = idp_info['error_codes']['assertion_attributes'] if idp_info \
