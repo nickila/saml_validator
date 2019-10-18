@@ -4,3 +4,27 @@ __pycache__/
 .idea/
 unused/
 venv37/
+build/
+node_modules/
+
+
+# vim swp files
+.vimrc
+*.swp
+
+# OSX os files
+.DS_Store
+.DS_Store?
+
+# SASS
+.sass-cache
+*.css.map
+
+# intellij
+.idea
+
+# python
+*.pyc
+venv*
+*.log
+logs/

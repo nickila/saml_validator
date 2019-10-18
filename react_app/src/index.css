@@ -1,0 +1,61 @@
+body {
+    background-color: rgb(32, 32, 32);
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-top: 50px;
+}
+
+
+label {
+  color: white;
+}
+
+.grey-text {
+  color: red;
+}
+
+.form-row {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+button {
+  width: 100%;
+}
+
+.form-row>.col, .form-row>[class*=col-] {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.results-table {
+  background-color: white;
+}
+
+table {
+  margin-top: 50px;
+}
+thead {
+  background-color: #ffc107;
+  border: none;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+.error-red {
+  color: red;
+}
+
+.form-row {
+  outline-color: white;
+}
+
+.small-form {
+  width: 400px;
+
+}
