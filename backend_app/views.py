@@ -7,8 +7,7 @@ from backend_app.process_error import ErrorHandler
 
 @backend_app.app.my_app.route('/')
 def welcome():
-    return 'hi'
-    #return render_template('front.html')
+    return render_template('index.html')
 
 
 @backend_app.app.my_app.route('/upload', methods=['POST'])

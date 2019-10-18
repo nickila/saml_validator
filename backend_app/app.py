@@ -1,11 +1,11 @@
 import os
 import yaml
-from flask import Flask
+from flask import Flask, render_template
 from backend_app.resources import resource_dir
 my_app = Flask(__name__,
             template_folder=os.path.join(resource_dir, 'templates'),
             static_folder=os.path.join(resource_dir, 'static'))
-import backend_app.views
+
 
 with open('configurations/idp.yml') as c_file:
     idp_repo = yaml.safe_load(c_file)
@@ -22,6 +22,9 @@ def get_descriptions():
 def get_idp_repo():
     return idp_repo
 
+@my_app.route('/')
+def welcome():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     my_app.debug = True
