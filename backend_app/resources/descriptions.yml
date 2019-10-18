@@ -1,10 +1,21 @@
 # descriptions for saml trace values
-issuer_url: 'Must match Entity ID attribute value from Adobe Metadata'
-destination: 'Must match Location attribute value from Adobe Metadata'
-signature_method_algorithm: 'Should be rsa-sha1'
-digest_method_algorithm: 'Should be rsa-sha1'
-assertion_attributes: 'Attributes included in your SAML assertion'
-name_id_format: 'Format of your Name-ID attribute'
-name_id: 'Name-ID attribute, format of attribute must match your login setting of your federated directory'
-signing_cert: 'Token-Signing Certificate, must be Base-64 encoded X.509(.CER), which is equivalent to a PEM format certificate'
-time_sent: "Timestamp must be within the 'not_before' and 'not_on_or_after' time window"
+metadata:
+  issuer_url: 'Must match Entity ID attribute value from Adobe Metadata'
+  destination: 'Must match Location attribute value from Adobe Metadata'
+  signature_method_algorithm: 'Should be rsa-sha1'
+  digest_method_algorithm: 'Should be rsa-sha1'
+  assertion_attributes: 'Attributes included in your SAML assertion'
+  name_id_format: 'Format of your Name-ID attribute'
+  name_id: 'Name-ID attribute, format of attribute must match your login setting of your federated directory'
+  signing_cert: 'Token-Signing Certificate, must be Base-64 encoded X.509(.CER), which is equivalent to a PEM format certificate'
+  time_sent: "Timestamp must be within the 'not_before' and 'not_on_or_after' time window"
+# error messages
+error_message:
+  no_attributes: 'Assertion attributes not released'
+  signature_method_algorithm: 'Should be rsa-sha1'
+  digest_method_algorithm: 'Should be rsa-sha1'
+  assertion_attributes: 'Assertion must include FirstName, LastName, and Email'
+  name_id_format: 'Name-ID requires unspecified or emailAddress format'
+  name_id: 'Name-ID attribute must be present with unspecified or emailAddress format'
+  signing_cert: 'Signing cert not present'
+  time_sent: "Timestamp must be within the 'not_before' and 'not_on_or_after' time window"

@@ -62,28 +62,30 @@ class Analyzer:
     def analyze(cls, saml_values, descriptions, idp_info=None):
         errors = {}
         if not saml_values['assertion_attributes']:
-            errors['no_attributes'] = idp_info['error_codes']['assertion_attributes'] if idp_info \
-                else {'description': 'Assertion attributes not released'}
-            errors['no_attributes']['description'] = 'Assertion attributes not released'
-
-        if not {'FirstName', 'LastName', 'Email'}.issubset(saml_values['assertion_attributes']):
-            errors['assertion_attributes'] = idp_info['error_codes']['assertion_attributes'] if idp_info \
-                else {'description': 'Assertion must include FirstName, LastName, and Email'}
-            errors['assertion_attributes']['description'] = 'Assertion must include FirstName, LastName, and Email'
-
+            errors['assertion_attributes'] = {'description': descriptions['error_message']['no_attributes']}
+            if idp_info:
+                errors['assertion_attributes'].update(idp_info['error_codes']['assertion_attributes'])
+        else:
+            if not {'FirstName', 'LastName', 'Email'}.issubset(saml_values['assertion_attributes']):
+                errors['assertion_attributes'] = {
+                    'description': descriptions['error_message']['assertion_attributes']}
+                if idp_info:
+                    errors['assertion_attributes'].update(idp_info['error_codes']['assertion_attributes'])
+            
         if not saml_values['name_id']:
-            errors['name_id'] = idp_info['error_codes']['name_id'] if idp_info \
-                else {'description': 'Name-ID attribute must be present with unspecified or emailAddress format'}
             errors['name_id'][
-                'description'] = 'Name-ID attribute must be present with unspecified or emailAddress format'
+                'description'] = {'descriptions': descriptions['error_message']['name_id']}
+            if idp_info:
+                errors['name_id'].update(idp_info['error_codes']['name_id'])
 
-        if saml_values['name_id_format'] not in ['unspecified', 'emailAddress']:
-            errors['name_id_format'] = idp_info['error_codes']['name_id_format'] if idp_info \
-                else {'description': 'Name-ID requires unspecified or emailAddress format'}
-            errors['name_id_format']['description'] = 'Name-ID requires unspecified or emailAddress format'
+        if not any(item in saml_values['name_id_format'] for item in ['unspecified', 'emailAddress']):
+            errors['name_id_format'] = {'description': descriptions['error_message']['name_id_format']}
+            if idp_info:
+                errors['name_id_format'].update(idp_info['error_codes']['name_id_format'])
 
         if not saml_values['signing_cert']:
-            errors['signing_cert'] = idp_info['error_codes']['signing_cert'] if idp_info \
-                else {'description': 'Signing cert not present'}
-            errors['signing_cert']['description'] = 'Signing cert not present'
+            errors['signing_cert'] = {'description': descriptions['error_message']['signing_cert']}
+            if idp_info:
+                errors['signing_cert'].update(idp_info['error_codes']['signing_cert'])
+            
         return SamlResult.construct_result(saml_values, descriptions, errors)
