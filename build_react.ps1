@@ -4,7 +4,6 @@ param (
     [Switch]$clean
 )
 
-
 $build_dir = "$react_dir\build"
 $meta_dir = "$app_dir\static\meta"
 $templates_dir = "$app_dir\templates"
@@ -14,16 +13,16 @@ Set-Location $react_dir
 
 try
 {
-    if (-Not (Test-Path "node_modules")) {
-        npm install
-    }
-
+    if (-Not(Test-Path "node_modules")){ npm install }
     npm run build
-}
-finally
-{
     Set-Location ..
 }
+catch
+{
+    Set-Location ..
+    exit
+}
+
 
 if ($clean.IsPresent)
 {
@@ -34,8 +33,6 @@ if ($clean.IsPresent)
 Copy-Item "$build_dir\static" "$app_dir" -Recurse -Force
 New-Item -Path "$templates_dir"-ItemType Directory -Force | Out-Null
 New-Item -Path "$meta_dir"-ItemType Directory -Force | Out-Null
-
-
 Copy-Item -Path (Get-Item -Path "$build_dir\*" -Exclude 'static') -Destination "$meta_dir" -Force
 Move-Item -Path "$meta_dir\*.html" -Destination "$templates_dir" -Force
 
