@@ -14,6 +14,10 @@ Set-Location $react_dir
 
 try
 {
+    if (-Not (Test-Path "node_modules")) {
+        npm install
+    }
+
     npm run build
 }
 finally
