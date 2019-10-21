@@ -5,7 +5,7 @@ class NoMatch extends Component {
   render() {
     return (
       <div className={'container'}>
-        <h1>No Match Found</h1>
+        <h1>Page Not Found</h1>
       </div>
     );
   }
