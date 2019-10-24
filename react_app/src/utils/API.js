@@ -5,7 +5,8 @@ export default {
     addStuff: function (data) {
         console.log('data is');
         console.log(data);
-        return axios.post("/api/data", data);
+        return axios.post("http://localhost:5000/upload", data);
+
     }
 
 }

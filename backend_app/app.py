@@ -3,6 +3,8 @@ from flask import Flask
 from backend_app.process_request import RequestHandler
 from backend_app import view
 from backend_app.resources import get_resource
+from flask_cors import CORS, cross_origin
+
 
 with open(get_resource('idp.yml')) as c_file:
     RequestHandler.idp_repo = yaml.safe_load(c_file)
@@ -12,10 +14,13 @@ with open(get_resource('descriptions.yml')) as d_file:
 
 app = Flask(__name__,
             template_folder=get_resource('templates'),
-            static_folder=get_resource('static'))
-
+            static_folder=get_resource('static'),
+            )
+CORS(app)
 app.register_blueprint(view.view)
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
+    app.run(
+        use_reloader=False
+    )
