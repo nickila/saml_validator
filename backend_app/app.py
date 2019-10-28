@@ -1,6 +1,6 @@
 import yaml
 from flask import Flask
-from backend_app.process_request import RequestHandler
+from backend_app.request_handler import RequestHandler
 from backend_app import view
 from backend_app.resources import get_resource
 

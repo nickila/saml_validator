@@ -1,7 +1,7 @@
 # descriptions for saml trace values
 metadata:
-  issuer_url: 'Entity ID, Must match Entity ID attribute value from Adobe Metadata'
-  destination: 'Assertion Consumer Service(ACS) URL, Must match Location attribute value from Adobe Metadata'
+  issuer_url: 'Must match Entity ID attribute value from Adobe Metadata'
+  destination: 'Must match Location attribute value from Adobe Metadata'
   signature_method_algorithm: 'Should be rsa-sha1'
   digest_method_algorithm: 'Should be rsa-sha1'
   assertion_attributes: 'Attributes included in your SAML assertion'
