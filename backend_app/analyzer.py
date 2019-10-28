@@ -1,4 +1,4 @@
-from backend_app.saml_result import SamlResult
+from backend_app.response_builder import ResponseBuilder
 from backend_app.error_handler import SamlParsingError
 
 
@@ -7,7 +7,7 @@ class Analyzer:
     def process(cls, saml_dict, descriptions, idp_info=None):
         saml_values = cls.parse_saml(saml_dict)
         errors = cls.create_error_dict(saml_values, descriptions.get('error_message'), idp_info)
-        return SamlResult.construct_result(saml_values, descriptions.get('metadata'), errors)
+        return ResponseBuilder.construct_response(saml_values, descriptions.get('metadata'), errors)
 
     @classmethod
     def parse_saml(cls, dict_saml_trace):

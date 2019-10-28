@@ -3,7 +3,7 @@ from collections import OrderedDict
 from backend_app.analyzer import Analyzer
 from backend_app.error_handler import XMLParsingError, SamlParsingError
 
-from backend_app.saml_result import SamlResult
+from backend_app.response_builder import ResponseBuilder
 
 
 def test_parse_saml(saml_file_dict, saml2_file_dict, saml_parsed_dict, saml2_parsed_dict):
@@ -27,7 +27,7 @@ def test_construct_result(saml_parsed_dict, descriptions):
               'name_id_format': {'description': 'Name-ID requires unspecified or emailAddress format'},
               'signing_cert': {'description': 'Signing cert not present'}}
 
-    result = SamlResult.construct_result(saml_parsed_dict, descriptions, errors)
+    result = ResponseBuilder.construct_response(saml_parsed_dict, descriptions, errors)
     expected = {'assertion_attributes': {
         'value': {'LastName': 'user_lastname', 'FirstName': 'user_firstname', 'Email': 'user_email@example.com',
                   'Other': 'other attribute'},

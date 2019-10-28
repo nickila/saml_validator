@@ -1,6 +1,6 @@
-class SamlResult:
+class ResponseBuilder:
     @classmethod
-    def construct_result(cls, saml_values, descriptions, errors=None):
+    def construct_response(cls, saml_values, descriptions, errors=None):
         """
         description: Builds final JSON response object
         :type saml_values: dict()
