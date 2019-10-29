@@ -10,8 +10,6 @@ class Home extends Component {
             <div>
                 <Title />
                 <Form />
-                <Table />
-                {/*<PracticeForm />*/}
             </div>
         )
     }

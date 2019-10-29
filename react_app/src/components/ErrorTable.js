@@ -1,12 +1,10 @@
 import React from "react";
 import "../index.css";
 
-function Table(props) {
+function ErrorTable(props) {
     return (
       <div className={'container'}>
           <div className={"row"}>
-            <li>{props.description + " === " + props.value}</li>
-
               <thead>
               <tr>
                 <th scope="col">Attribute</th>
@@ -17,7 +15,8 @@ function Table(props) {
               <tbody>
               <tr>
                 <td>{props.description}</td>
-                <td>{props.value}</td>
+                <td>{props.hint}</td>
+                <td>{props.link}</td>
               </tr>
               </tbody>
           </div>
@@ -26,4 +25,4 @@ function Table(props) {
 
 }
 
-export default Table;
+export default ErrorTable;

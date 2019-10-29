@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import "../index.css";
 import axios from "axios"
+import Table from "../components/Table";
+import ErrorTable from "../components/ErrorTable";
 
 class Form extends Component {
 
     state = {
         saml_file: null,
-        idp_name: ""
+        idp_name: "",
+        data: [],
+        description: ""
     }
 
     handleInputChange = event => {
@@ -14,7 +18,6 @@ class Form extends Component {
         this.setState({
             [name]: value
         });
-        console.log(this.state.idp_name)
     }
 
     handleFile(e) {
@@ -28,25 +31,113 @@ class Form extends Component {
         let formdata = new FormData()
         formdata.append('saml_file', file)
         formdata.append('idp_name', idp_name)
-        console.log('handleUpload')
-        console.log(file)
 
         axios({
             url: "/upload",
             method: "POST",
-            headers: {
-            authorization: 'your token'
-            },
             data: formdata
         }).then((res)=> {
-            console.log('res')
-            console.log(res)
+            // console.log(res)
+            if (res.data) {
+                // res.data[0] =
+                this.setState({data: res.data})
+                let jsonData = this.state.data
+                for (let key in jsonData) {
+                    if (jsonData.hasOwnProperty(key)) {
+                        // console.log(key + " description: " + JSON.stringify(jsonData[key].description));
+                        // console.log(key + " value: " + JSON.stringify(jsonData[key].value));
+                        // console.log(key + " errors: " + JSON.stringify(jsonData[key]["errors_found"]))
+                    }
+                }
+                // Object.entries(this.state.data).map(([key, value]) =>{
+                //     return(
+                //     <div>{key} : {value}</div>
+                //     )
+                // })
+            }
+
+            // this.setState({description: res.data.assertion_attributes.description})
+            //     console.log(this.state.description)
+
         }, (err)=> {
             console.log(err)
         })
+
     }
 
     render() {
+
+        let json = this.state.data;
+        let arr = [];
+        let valueArr = [];
+        let errorArr = [];
+        let simpleArr = [];
+            Object.keys(json).forEach(function(key) {
+                arr.push(json[key])
+
+            })
+            for (let i=0; i < arr.length; i++) {
+                if ("errors_found" in arr[i]) {
+                    Object.keys(arr[i]).forEach(function (key) {
+                        errorArr.push(arr[i][key])
+                        if (typeof arr[i][key] === "object") {
+                            console.log(arr)
+                            console.log("==========================")
+
+                        }
+                    })
+                }
+            }
+            console.log(arr)
+            console.log("==========================")
+        //         if (typeof arr[i].value === "object") {
+        //             console.log(arr[i])
+        //             Object.keys(arr[i]).forEach(function (key) {
+        //                 valueArr.push(arr[i][key])
+        //                 console.log(valueArr)
+        //             })
+        //         } else {
+        //             Object.keys(arr[i]).forEach(function (key) {
+        //                 simpleArr.push(json[key])
+        //             });
+        //         }
+        //     }
+        //     console.log("arr")
+        //     console.log(arr)
+            // console.log("************** ERROR ARRAY **************")
+            // console.log(errorArr)
+            // console.log("*****************************************")
+            // console.log("************** SIMPLE ARRAY **************")
+            // console.log(simpleArr)
+            // console.log("*****************************************")
+            // console.log("************** VALUE ARRAY **************")
+            // console.log(valueArr)
+            // console.log("*****************************************")
+            // console.log("************** ALL ARRAY **************")
+            // console.log(arr)
+            // console.log("*****************************************")
+
+        // THE FOLLOWING CODE WILL GRAB ALL NESTED KEYS AND VALUES AND CONSOLE LOG THEM
+
+        // const group = (obj, fn) => {
+        //     const values = Object.values(obj)
+        //     const keys = Object.keys(obj)
+        //
+        //     values.forEach(val =>
+        //     val && typeof val === "object" ? group(val, fn) : fn(val))
+        //     keys.forEach(key =>
+        //     key && typeof key === "object" ? group(key, fn) : fn(key))
+        // }
+        //
+        // const print = (val) => console.log(val)
+        // console.log("+++++++++++++++++++++++++++++++++++")
+        // group(this.state.data, print)
+        // console.log("+++++++++++++++++++++++++++++++++++")
+
+
+
+
+
         return (
             <div className="container">
                 <form>
@@ -78,15 +169,20 @@ class Form extends Component {
                                 onChange={this.handleInputChange}
                             >
                             <option className={"grey-text"}>Select IDP...</option>
-                            <option value="SecureAuth">SecureAuth</option>
                             <option value="adfs">AD FS</option>
-                            <option value="PingFederate">PingFederate</option>
-                            <option value="Other">Other</option>
+                            <option value="azure">Azure</option>
+                            <option value="shibboleth">Shibboleth</option>
+                            <option value="google">Google</option>
+                            <option value="wso2">WSO2</option>
+                            <option value="okta">Okta</option>
+                            <option value="other">Other</option>
                             </select>
                         </div>
                         <div className={"col field"}>
                             <button type="button" className="btn btn-warning mb-2" onClick={(e)=>this.handleUpload(e)}>SUBMIT</button>
                         </div>
+                        <table className="table borderless results-table col-9 mx-auto">{errorArr.map(item => <ErrorTable key={item.label} hint={item["hint"]} description={item.description} link={item.link} />)}</table>
+                        <table className="table borderless results-table col-9 mx-auto">{arr.map(item => <Table key={item.label} description={item.description} value={item.value} />)}</table>
                     </div>
                 </form>
             </div>

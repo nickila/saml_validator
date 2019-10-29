@@ -1,5 +1,7 @@
 body {
     background-color: rgb(32, 32, 32);
+    /*background-color: dimgray;*/
+
 }
 
 h1 {
@@ -10,6 +12,10 @@ h1 {
 
 
 label {
+  color: white;
+}
+
+li {
   color: white;
 }
 
