@@ -65,7 +65,7 @@ class Analyzer:
     @classmethod
     def get_attribute_value(cls, section, keys):
         """
-        description: retrieves saml_attribute's values
+        description: retrieve value/s at given key location
         :type section: dict()
         :type keys: list(index keys)
         :rtype: value: str() or dict()
@@ -90,29 +90,29 @@ class Analyzer:
         errors = {}
         if not saml_values['assertion_attributes']:
             errors['assertion_attributes'] = {'description': descriptions['no_attributes']}
-            if idp_info.get('assertion_attributes'):
+            if idp_info and idp_info.get('assertion_attributes'):
                 errors['assertion_attributes'].update(idp_info['assertion_attributes'])
         else:
             if not {'FirstName', 'LastName', 'Email'}.issubset(saml_values['assertion_attributes']):
                 errors['assertion_attributes'] = {
                     'description': descriptions['assertion_attributes']}
-                if idp_info.get('assertion_attributes'):
+                if idp_info and idp_info.get('assertion_attributes'):
                     errors['assertion_attributes'].update(idp_info['assertion_attributes'])
 
         if not saml_values['name_id']:
             errors['name_id'] = {'descriptions': descriptions['name_id']}
-            if idp_info.get('name_id'):
+            if idp_info and idp_info.get('name_id'):
                 errors['name_id'].update(idp_info['name_id'])
 
         name_id_format = saml_values['name_id_format']
         if 'unspecified' not in name_id_format and 'emailAddress' not in name_id_format:
             errors['name_id_format'] = {'description': descriptions['name_id_format']}
-            if idp_info.get('name_id_format'):
+            if idp_info and idp_info.get('name_id_format'):
                 errors['name_id_format'].update(idp_info['name_id_format'])
 
         if not saml_values['signing_cert']:
             errors['signing_cert'] = {'description': descriptions['signing_cert']}
-            if idp_info.get('signing_cert'):
+            if idp_info and idp_info.get('signing_cert'):
                 errors['signing_cert'].update(idp_info['signing_cert'])
 
         if not saml_values['in_response_to']:

@@ -16,16 +16,16 @@ class RequestHandler:
 
     @classmethod
     def validate_xml_upload(cls, request):
-        if 'saml_file' not in request.files:
-            raise FileUploadError('No file found. Please upload an xml saml trace')
-        else:
+        try:
             file = request.files['saml_file']
+        except Exception as e:
+            raise FileUploadError('No file found. Please upload an xml saml trace ' + str(e))
         if 'xml' not in file.content_type and 'xml' not in file.mimetype:
             raise FileUploadError('.xml format required')
         try:
             return file.read().decode()
         except Exception as e:
-            raise FileUploadError('add explanation: ' + str(e))
+            raise FileUploadError('Error reading and decoding XML file ' + str(e))
 
     @classmethod
     def dict_parse_xml(cls, data):
