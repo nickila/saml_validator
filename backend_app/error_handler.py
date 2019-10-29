@@ -23,7 +23,7 @@ class ApiError(Exception):
         if self.status_code:
             rv['status_code'] = str(self.status_code)
             rv['reply'] = HTTPStatus(self.status_code).phrase
-        if self.message:
+        if hasattr(self, 'message'):
             rv['message'] = self.message
         if hasattr(self, 'error'):
             rv['error'] = self.error
@@ -40,10 +40,6 @@ class InternalError(Exception):
 
 
 class SamlParsingError(Exception):
-    pass
-
-
-class NoFilePresentError(Exception):
     pass
 
 

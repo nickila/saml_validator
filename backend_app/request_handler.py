@@ -1,6 +1,6 @@
 import xmltodict
 from backend_app.analyzer import Analyzer
-from backend_app.error_handler import XMLParsingError, InternalError, NoFilePresentError, FileUploadError
+from backend_app.error_handler import XMLParsingError, FileUploadError
 
 
 class RequestHandler:
@@ -8,31 +8,28 @@ class RequestHandler:
     descriptions = None
     @classmethod
     def process_request(cls, request):
-        file = cls.validate_xml_upload(request)
-        saml_dict = cls.dict_parse_xml(file)
-        try:
-            idp_name = request.values.get('idp_name', 'Other/Not Specified')
-            idp_info = cls.idp_repo[idp_name] if idp_name != 'Other/Not Specified' else None
-            descriptions = cls.descriptions
-        except Exception as e:
-            raise InternalError(str(e))
-
-        return Analyzer.process(saml_dict, descriptions, idp_info)
+        data = cls.validate_xml_upload(request)
+        saml_dict = cls.dict_parse_xml(data)
+        idp_name = request.values.get('idp_name', None)
+        idp_info = cls.idp_repo.get(idp_name, {})
+        return Analyzer.process(saml_dict, cls.descriptions, idp_info)
 
     @classmethod
     def validate_xml_upload(cls, request):
         if 'saml_file' not in request.files:
-            raise NoFilePresentError(str(Exception))
+            raise FileUploadError('No file found. Please upload an xml saml trace')
         else:
             file = request.files['saml_file']
         if 'xml' not in file.content_type and 'xml' not in file.mimetype:
-            raise FileUploadError(str(Exception))
-        return file
+            raise FileUploadError('.xml format required')
+        try:
+            return file.read().decode()
+        except Exception as e:
+            raise FileUploadError('add explanation: ' + str(e))
 
     @classmethod
-    def dict_parse_xml(cls, file):
+    def dict_parse_xml(cls, data):
         try:
-            saml_dict = xmltodict.parse(file.read().decode())
+            return dict(xmltodict.parse(data))
         except Exception as e:
-            raise XMLParsingError(str(e))
-        return saml_dict
+            raise XMLParsingError('Error parsing XML: ' + str(e))

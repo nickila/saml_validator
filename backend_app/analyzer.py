@@ -6,7 +6,7 @@ class Analyzer:
     @classmethod
     def process(cls, saml_dict, descriptions, idp_info=None):
         saml_values = cls.parse_saml(saml_dict)
-        errors = cls.create_error_dict(saml_values, descriptions.get('error_message'), idp_info)
+        errors = cls.create_error_dict(saml_values, descriptions.get('error_message'), idp_info.get('error_codes'))
         return ResponseBuilder.construct_response(saml_values, descriptions.get('metadata'), errors)
 
     @classmethod
@@ -16,18 +16,17 @@ class Analyzer:
         :type dict_saml_trace: dict(result of xmltodict.parse(uploaded XML file))
         :rtype: saml_trace_values: dict(extracted saml values)
         """
-        saml_trace_values = {}
         try:
-            key = 'saml2' if '2' in list(dict_saml_trace.keys())[0] else 'saml'
+            first_key = list(dict_saml_trace)[0]
+            key = 'saml2' if '2' in first_key else 'saml'
+            dict_saml_trace = dict_saml_trace[key + 'p:Response']
+            signature = dict_saml_trace['ds:Signature']
+            assertions = dict_saml_trace[key + ':Assertion']
         except Exception as e:
-            raise SamlParsingError(str(e))
-        attributes_released = []
-        try:
-            attributes_released = dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':AttributeStatement'][
-                key + ':Attribute']
-        except:
-            saml_trace_values['assertion_attributes'] = None
-        if len(attributes_released) != 0:
+            raise SamlParsingError('Error parsing uploaded file ' + str(e))
+        saml_trace_values = {}
+        attributes_released = cls.get_attribute_value(assertions, [key + ':AttributeStatement', key + ':Attribute'])
+        if attributes_released:
             assertion_attributes = {}
             for each in attributes_released:
                 try:
@@ -35,66 +34,49 @@ class Analyzer:
                 except:
                     assertion_attributes[each['@Name']] = None
             saml_trace_values['assertion_attributes'] = assertion_attributes
-        try:
-            saml_trace_values['name_id'] = \
-                dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Subject'][key + ':NameID']['#text']
-        except:
-            saml_trace_values['name_id'] = None
-        try:
-            saml_trace_values['name_id_format'] = \
-                dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Subject'][key + ':NameID']['@Format']
-        except:
-            saml_trace_values['name_id_format'] = None
-        try:
-            saml_trace_values['destination'] = dict_saml_trace[key + 'p:Response']['@Destination']
-        except:
-            saml_trace_values['destination'] = None
-        try:
-            saml_trace_values['issuer_url'] = \
-                dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Conditions'][
-                    key + ':AudienceRestriction'][
-                    key + ':Audience']
-        except:
-            saml_trace_values['issuer_url'] = None
-        try:
-            saml_trace_values['signature_method_algorithm'] = \
-                dict_saml_trace[key + 'p:Response']['ds:Signature']['ds:SignedInfo']['ds:SignatureMethod']['@Algorithm']
-        except:
-            saml_trace_values['signature_method_algorithm'] = None
-        try:
-            saml_trace_values['digest_method_algorithm'] = \
-                dict_saml_trace[key + 'p:Response']['ds:Signature']['ds:SignedInfo']['ds:Reference']['ds:DigestMethod'][
-                    '@Algorithm']
-        except:
-            saml_trace_values['digest_method_algorithm'] = None
+        else:
+            saml_trace_values['assertion_attributes'] = None
 
-        try:
-            saml_trace_values['not_before'] = \
-            dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Conditions'][
-                '@NotBefore']
-        except:
-            saml_trace_values['not_before'] = None
-        try:
-            saml_trace_values['time_sent'] = dict_saml_trace[key + 'p:Response']['@IssueInstant']
-        except:
-            saml_trace_values['time_sent'] = None
-        try:
-            saml_trace_values['not_on_or_after'] = \
-                dict_saml_trace[key + 'p:Response'][key + ':Assertion'][key + ':Conditions'][
-                    '@NotOnOrAfter']
-        except:
-            saml_trace_values['not_on_or_after'] = None
-        try:
-            saml_trace_values['signing_cert'] = \
-                dict_saml_trace[key + 'p:Response']['ds:Signature']['ds:KeyInfo']['ds:X509Data'][
-                    'ds:X509Certificate'] if True else None
-        except:
-            saml_trace_values['signing_cert'] = None
+        saml_trace_values['name_id'] = cls.get_attribute_value(assertions, [key + ':Subject', key + ':NameID', '#text'])
+        saml_trace_values['name_id_format'] = cls.get_attribute_value(assertions,
+                                                                      [key + ':Subject', key + ':NameID', '@Format'])
+        saml_trace_values['destination'] = cls.get_attribute_value(dict_saml_trace, ['@Destination'])
+        saml_trace_values['issuer_url'] = cls.get_attribute_value(assertions,
+                                                                  [key + ':Conditions', key + ':AudienceRestriction',
+                                                                   key + ':Audience'])
+        saml_trace_values['signature_method_algorithm'] = cls.get_attribute_value(signature, ['ds:SignedInfo',
+                                                                                              'ds:SignatureMethod',
+                                                                                              '@Algorithm'])
+        saml_trace_values['digest_method_algorithm'] = cls.get_attribute_value(signature,
+                                                                               ['ds:SignedInfo', 'ds:Reference',
+                                                                                'ds:DigestMethod', '@Algorithm'])
+        saml_trace_values['not_before'] = cls.get_attribute_value(assertions, [key + ':Conditions', '@NotBefore'])
+        saml_trace_values['time_sent'] = cls.get_attribute_value(dict_saml_trace, ['@IssueInstant'])
+        saml_trace_values['not_on_or_after'] = cls.get_attribute_value(assertions,
+                                                                       [key + ':Conditions', '@NotOnOrAfter'])
+        saml_trace_values['signing_cert'] = cls.get_attribute_value(signature,
+                                                                    ['ds:KeyInfo', 'ds:X509Data', 'ds:X509Certificate'])
+        saml_trace_values['in_response_to'] = cls.get_attribute_value(dict_saml_trace, ['@InResponseTo'])
 
         if all(value is None for value in saml_trace_values.values()):
-            raise SamlParsingError()
-
+            raise SamlParsingError('Issues Parsing dict(XML), Saml values were unable to be extracted')
         return saml_trace_values
+
+    @classmethod
+    def get_attribute_value(cls, section, keys):
+        """
+        description: retrieves saml_attribute's values
+        :type section: dict()
+        :type keys: list(index keys)
+        :rtype: value: str() or dict()
+        """
+        try:
+            value = section
+            for k in keys:
+                value = value[k]
+        except:
+            value = None
+        return value
 
     @classmethod
     def create_error_dict(cls, saml_values, descriptions, idp_info=None):
@@ -109,28 +91,30 @@ class Analyzer:
         if not saml_values['assertion_attributes']:
             errors['assertion_attributes'] = {'description': descriptions['no_attributes']}
             if idp_info.get('assertion_attributes'):
-                errors['assertion_attributes'].update(idp_info['error_codes']['assertion_attributes'])
+                errors['assertion_attributes'].update(idp_info['assertion_attributes'])
         else:
             if not {'FirstName', 'LastName', 'Email'}.issubset(saml_values['assertion_attributes']):
                 errors['assertion_attributes'] = {
                     'description': descriptions['assertion_attributes']}
                 if idp_info.get('assertion_attributes'):
-                    errors['assertion_attributes'].update(idp_info['error_codes']['assertion_attributes'])
+                    errors['assertion_attributes'].update(idp_info['assertion_attributes'])
 
         if not saml_values['name_id']:
             errors['name_id'] = {'descriptions': descriptions['name_id']}
             if idp_info.get('name_id'):
-                errors['name_id'].update(idp_info['error_codes']['name_id'])
+                errors['name_id'].update(idp_info['name_id'])
 
-        if not saml_values['name_id_format'] or not any(
-                item in saml_values['name_id_format'] for item in ['unspecified', 'emailAddress']):
+        name_id_format = saml_values['name_id_format']
+        if 'unspecified' not in name_id_format and 'emailAddress' not in name_id_format:
             errors['name_id_format'] = {'description': descriptions['name_id_format']}
             if idp_info.get('name_id_format'):
-                errors['name_id_format'].update(idp_info['error_codes']['name_id_format'])
+                errors['name_id_format'].update(idp_info['name_id_format'])
 
         if not saml_values['signing_cert']:
             errors['signing_cert'] = {'description': descriptions['signing_cert']}
             if idp_info.get('signing_cert'):
-                errors['signing_cert'].update(idp_info['error_codes']['signing_cert'])
+                errors['signing_cert'].update(idp_info['signing_cert'])
 
+        if not saml_values['in_response_to']:
+            errors['in_response_to'] = {'description': descriptions['in_response_to']}
         return errors
