@@ -1,7 +1,7 @@
 # descriptions for saml trace values
 metadata:
-  issuer_url: 'Entity ID, Must match Entity ID attribute value from Adobe Metadata'
-  destination: 'Assertion Consumer Service(ACS) URL, Must match Location attribute value from Adobe Metadata'
+  issuer_url: 'Must match Entity ID attribute value from Adobe Metadata'
+  destination: 'Must match Location attribute value from Adobe Metadata'
   signature_method_algorithm: 'Should be rsa-sha1'
   digest_method_algorithm: 'Should be rsa-sha1'
   assertion_attributes: 'Attributes included in your SAML assertion'
@@ -9,13 +9,8 @@ metadata:
   name_id: 'Name-ID attribute, format of attribute must match your login setting of your federated directory'
   signing_cert: 'Token-Signing Certificate, must be Base-64 encoded X.509(.CER), which is equivalent to a PEM format certificate'
   time_sent: "Timestamp must be within the 'not_before' and 'not_on_or_after' time window"
-  in_response_to: "Id of SAML request, this response is created for"
-  not_on_or_after: "Response must not be on or after this timestamp value"
-  not_before: "Response must not before this timestamp value"
 # error messages
 error_message:
-  issuer_url: 'No Issuer Url (Entity ID) found'
-  destination: 'No Assertion Consumer Service(ACS) URL found'
   no_attributes: 'Assertion attributes not released'
   signature_method_algorithm: 'Should be rsa-sha1'
   digest_method_algorithm: 'Should be rsa-sha1'
@@ -24,4 +19,3 @@ error_message:
   name_id: 'Name-ID attribute must be present with unspecified or emailAddress format'
   signing_cert: 'Signing cert not present'
   time_sent: "Timestamp must be within the 'not_before' and 'not_on_or_after' time window"
-  in_response_to: "No InResponseTo value found"
