@@ -88,33 +88,35 @@ class Analyzer:
         :rtype: errors dict(saml errors found)
         """
         errors = {}
+        # Checks if assertion attributes are being released
         if not saml_values['assertion_attributes']:
             errors['assertion_attributes'] = {'description': descriptions['no_attributes']}
             if idp_info.get('assertion_attributes'):
                 errors['assertion_attributes'].update(idp_info['assertion_attributes'])
         else:
+            # Checks if FirstName, LastName, and Email attributes are being released and are labeled correctly
             if not {'FirstName', 'LastName', 'Email'}.issubset(saml_values['assertion_attributes']):
                 errors['assertion_attributes'] = {
                     'description': descriptions['assertion_attributes']}
                 if idp_info.get('assertion_attributes'):
                     errors['assertion_attributes'].update(idp_info['assertion_attributes'])
-
+        # Checks for presence of name-id
         if not saml_values['name_id']:
             errors['name_id'] = {'descriptions': descriptions['name_id']}
             if idp_info.get('name_id'):
                 errors['name_id'].update(idp_info['name_id'])
-
+        # Checks if name-id format is either unspecified or emailAddress
         name_id_format = saml_values['name_id_format']
         if 'unspecified' not in name_id_format and 'emailAddress' not in name_id_format:
             errors['name_id_format'] = {'description': descriptions['name_id_format']}
             if idp_info.get('name_id_format'):
                 errors['name_id_format'].update(idp_info['name_id_format'])
-
+        # Checks for presence of token signing certificate
         if not saml_values['signing_cert']:
             errors['signing_cert'] = {'description': descriptions['signing_cert']}
             if idp_info.get('signing_cert'):
                 errors['signing_cert'].update(idp_info['signing_cert'])
-
+        # Checks for presence of InResponseTo attribute
         if not saml_values['in_response_to']:
             errors['in_response_to'] = {'description': descriptions['in_response_to']}
         return errors
