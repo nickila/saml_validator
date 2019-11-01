@@ -46,7 +46,7 @@ If common errors are found the attribute will be bordered in red along with, if 
 
 # Result components further explained
 ### Pretty Print
--- Insert a photo of an example result attribute, and highlight it's main components:
+-- Insert a photo of an example result attribute, and highlight it's main components:  
 Name  
 description  
 value extracted 
