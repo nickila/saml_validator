@@ -35,6 +35,7 @@ button {
 .table-bordered {
   margin-top: 50px;
   background-color: white;
+  margin-bottom: 50px;
 }
 thead {
   background-color: rgb(46, 46, 46);
@@ -42,20 +43,9 @@ thead {
   color: white;
 }
 
-.borderless td, .borderless th {
-    border: none;
-}
-
-.error-value {
-  color: #ff1300;
-}
-
 .card-title {
    margin: 3px 1px;
 }
-/*.error-title {*/
-/*  color: #ff3528;*/
-/*}*/
 
 .card {
   width: 16rem;
@@ -63,22 +53,8 @@ thead {
   max-height: 22rem;
 }
 
-/*.error-card {*/
-/*  border: #ff3528 1px solid;*/
-/*}*/
-
 li {
   list-style-type: none;
-}
-
-.description {
-  font-weight: 300;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.error-description {
-  color: #ff1300;
 }
 
 .cert-card {
@@ -89,9 +65,8 @@ td {
   white-space: pre-wrap;
   word-break: break-word;
   vertical-align: top;
-  padding-left: 10px;
-  padding-bottom: 10px;
   line-height: 1.2;
+  padding: 5px 3px 5px 10px;
 }
 
 .attribute-header {
@@ -107,6 +82,10 @@ td {
 
 .error-header {
   width: 25%;
+}
+
+.error {
+  color: #ee0f00;
 }
 
 th {

@@ -1,23 +1,48 @@
 import React, { Component } from 'react';
 import "../index.css";
 import axios from "axios";
-import MapCards from "../components/MappedCard";
+import Select from "../components/Select";
+import Button from "../components/Button";
 import Table from "../components/Table";
-class Form extends Component {
+import API from "../utils/API";
 
-    state = {
-        saml_file: null,
-        idp_name: "",
-        data: [],
-        file: null
-    };
+class Form extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            saml_file: null,
+            idp_name: "",
+            data: [],
+            file: null,
+            idpOptions: ["ADFS", "Azure", "Google", "Shibboleth", "WSO2", "Okta", "Other"]
+        }
+        this.handleUpload = this.handleUpload.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+
+    }
 
     handleInputChange = event => {
-        const { name, value } = event.target;
+        const {name, value} = event.target;
         this.setState({
             [name]: value
         });
     };
+
+    // handleInputChange(event) {
+    //     const {name, value} = event.target;
+    //     this.setState(prevState => ({
+    //         idp_name:
+    //             {
+    //                 ...prevState.idp_name, [name]: value
+    //             }
+    //     }), () => console.log(event))
+    // }
+
+    // handleChange(event) {
+    //     this.setState({value: event.target.value});
+    //     event.preventDefault();
+    // }
 
     handleFile(e) {
         let file = e.target.files[0];
@@ -25,23 +50,17 @@ class Form extends Component {
     }
 
     handleUpload(e) {
+        e.preventDefault();
         let file = this.state.file;
         let idp_name = this.state.idp_name;
         let formdata = new FormData();
         formdata.append('saml_file', file);
         formdata.append('idp_name', idp_name);
 
-        axios({
-            url: "/upload",
-            method: "POST",
-            data: formdata
-        }).then((res)=> {
-            // if (res.data) {
-                // res.data[0] =
+        API.postData(formdata)
+            .then((res)=> {
                 this.setState({data: res.data})
-            // }
         }, (err)=> {
-            // Show error
             console.log(err)
         })
     }
@@ -86,13 +105,25 @@ class Form extends Component {
                                         <option value="okta">Okta</option>
                                         <option value="other">Other</option>
                                         </select>
+                                        {/*<Select title={"idp"}*/}
+                                        {/*    name={"idp_name"}*/}
+                                        {/*    options = {this.state.idpOptions}*/}
+                                        {/*    value={this.state.idp_name}*/}
+                                        {/*    placeholder={"Select IDP..."}*/}
+                                        {/*    handleChange={this.handleInputChange}*/}
+                                        {/*/>*/}
                                     </div>
                                     <div className={"col field"}>
-                                        <button type="button" className="btn btn-warning mb-2" onClick={(e)=>this.handleUpload(e)}>SUBMIT</button>
+                                        {/*<button type="button" className="btn btn-warning mb-2" onClick={(e)=>this.handleUpload(e)}>SUBMIT</button>*/}
+                                        <Button title={"SUBMIT"}
+                                            action={(e)=>this.handleUpload(e)}
+                                            className="btn btn-warning mb-2"
+                                        />
                                     </div>
                                 </div>
                             </form>
                         </div>
+                    {/*<TestGet />*/}
                     <Table res={this.state.data} />
                 </div>
         )

@@ -20,7 +20,10 @@ function Table(props) {
                 jsonArr.push(jsonData[attribute]);
             }
         }
-        // Splice out the signing cert and add it back into the array to get it to the end.
+        let timeSent = jsonArr[jsonArr.length-1];
+        jsonArr.splice(8, 0, timeSent);
+        jsonArr.pop();
+
         return (
             <div className={'container'}>
                 <div className={"row"}>
@@ -37,10 +40,10 @@ function Table(props) {
                         {jsonArr.map(key =>
                             {return "errors_found" in key ?
                                 <tr>
-                                    <td><b>{key.name}</b></td>
-                                    <td className="error-value">{key.value}</td>
-                                    <td className={"description"}>{key.description}</td>
-                                    <td className="error-description">
+                                    <td className={"error"}><b>{key.name}</b></td>
+                                    <td className={"error"}>{key.value}</td>
+                                    <td className={"error"}>{key.description}</td>
+                                    <td className={"error"}>
                                         {key.errors_found.description}
                                         <p className={"error-hint"}>({key.errors_found.hint})</p>
                                         <p><a href={key.errors_found.link} className="error-link">{key.errors_found.link}</a></p>
@@ -51,6 +54,7 @@ function Table(props) {
                                     <td><b>{key.name}</b></td>
                                     <td className="value">{key.value}</td>
                                     <td className={"description"}>{key.description}</td>
+                                    <td> </td>
                                 </tr>
                             }
                         )}
