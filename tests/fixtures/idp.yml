@@ -1,138 +1,160 @@
 adfs:
-  name: 'adfs'
   helpx: 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html'
   error_codes:
     assertion_attributes:
       hint: 'Review Steps 8 - 14'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
     name_id:
       hint: 'Please review step 11'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
     name_id_format:
       hint: 'Please review step 11'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
     issuer_url:
       hint: 'Please review step 2'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
     destination:
       hint: 'Please review step 2'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
     signature_method:
       hint: 'Please review step 16'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
     digest_method:
       hint: 'Please review step 16'
-      link: '#ConfiguretheADFSserver'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver'
 shibboleth:
-  name: 'shibboleth'
   helpx: 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html'
   error_codes:
     assertion_attributes:
-      hint: 'please review step 2 from link 1 and step 1 from link2'
-      link:
-        - '#ConfigureShibboleth'
-        - '#TroubleshootyourShibbolethsetup'
+      hint: 'please review step 2 from links 1 and step 1 from links2'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth'
+        - 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#TroubleshootyourShibbolethsetup'
     name_id:
       hint: 'Please review step 11'
-      link: '#TroubleshootyourShibbolethsetup'
-    name_id_format:
-      hint: 'please review step 2 from link 1 and step 8 from link2'
-      link:
-        - '#ConfigureShibboleth'
+      links:
         - '#TroubleshootyourShibbolethsetup'
+    name_id_format:
+      hint: 'please review step 2 from links 1 and step 8 from links2'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth'
+        - 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#TroubleshootyourShibbolethsetup'
     issuer_url:
       hint: 'Please review step 3'
-      link: '#ConfigureShibboleth'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth'
     destination:
       hint: 'Please review step 3'
-      link: '#ConfigureShibboleth'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth'
 azure:
-  name: 'azure'
   helpx: 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html'
   error_codes:
     assertion_attributes:
       hint: 'Review Steps 8 - 9'
-      link: '#CreatingSSOApplicationinAzureforAdobe'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe'
     name_id:
       hint: 'Review Step 9 "note"'
-      link: '#CreatingSSOApplicationinAzureforAdobe'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe'
     name_id_format:
       hint: 'Review Step 9 "note"'
-      link: '#CreatingSSOApplicationinAzureforAdobe'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe'
     issuer_url:
       hint: 'Review Steps 7, 20, 21'
-      link: '#CreatingSSOApplicationinAzureforAdobe'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe'
     destination:
       hint: 'Review Steps 7, 20, 21'
-      link: '#CreatingSSOApplicationinAzureforAdobe'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe'
     signing_cert:
       hint: 'Review Steps 10, 15, 16'
-      link: '#CreatingSSOApplicationinAzureforAdobe'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe'
 okta:
-  name: 'okta'
   helpx: 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html'
   error_codes:
     assertion_attributes:
       hint: 'Review Step 2'
-      link: '#ConfigureOkta'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta'
     name_id:
       hint: 'Review Step 2'
-      link: '#ConfigureOkta'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta'
     issuer_url:
-      hint: 'Review Step 4 from link1 and Steps 4, 5 from link2'
-      link:
-        - '#DownloadthesecuritycertificatefromOkta'
-        - '#ConfigureOkta'
+      hint: 'Review Step 4 from links1 and Steps 4, 5 from links2'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#DownloadthesecuritycertificatefromOkta'
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta'
     destination:
-      hint: 'Review Step 4 from link1 and Steps 4, 5 from link2'
-      link:
-        - '#DownloadthesecuritycertificatefromOkta'
-        - '#ConfigureOkta'
+      hint: 'Review Step 4 from links1 and Steps 4, 5 from links2'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#DownloadthesecuritycertificatefromOkta'
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta'
     signing_cert:
       hint: 'Review Step 1-4'
-      link: '#DownloadthesecuritycertificatefromOkta'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#DownloadthesecuritycertificatefromOkta'
 google:
-  name: 'google'
   helpx: 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html'
   error_codes:
     assertion_attributes:
       hint: 'Review Steps 2 - 3'
-      link: '#ConfiguretheGoogleAdminConsole'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole'
     name_id:
       hint: 'Review Step 1'
-      link: '#ConfiguretheGoogleAdminConsole'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole'
     name_id_format:
       hint: 'Review Step 1'
-      link: '#ConfiguretheGoogleAdminConsole'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole'
     issuer_url:
-      hint: 'Review Step 4 from link1 and Step 1 from link 2'
-      link:
-        - '#ConfigureAdobeAdminConsole'
-        - '#ConfiguretheGoogleAdminConsole'
+      hint: 'Review Step 4 from links1 and Step 1 from links 2'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfigureAdobeAdminConsole'
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole'
     destination:
-      hint: 'Review Step 4 from link1 and Step 1 from link 2 '
-      link:
-        - '#ConfigureAdobeAdminConsole'
-        - '#ConfiguretheGoogleAdminConsole'
+      hint: 'Review Step 4 from links1 and Step 1 from links 2 '
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfigureAdobeAdminConsole'
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole'
     signing_cert:
       hint: 'Review step 2'
-      link: '#SetupGoogleAdminConsole'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#SetupGoogleAdminConsole'
 wso2:
-  name: 'wso2'
   helpx: 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html'
   error_codes:
     assertion_attributes:
       hint: 'Review Step 6, and 10.5'
-      link: '#Registernewserviceprovider'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider'
     name_id:
       hint: 'Please review step 6'
-      link: '#Registernewserviceprovider'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider'
     name_id_format:
       hint: 'Please review step 6 and 10.3'
-      link: '#Registernewserviceprovider'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider'
     issuer_url:
       hint: 'Please review step 7, 10.1'
-      link: '#Registernewserviceprovider'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider'
     destination:
       hint: 'Please review step 7, 10.2'
-      link: '#Registernewserviceprovider'
+      links:
+        - 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider'

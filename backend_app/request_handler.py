@@ -6,6 +6,7 @@ from backend_app.error_handler import XMLParsingError, FileUploadError
 class RequestHandler:
     idp_repo = None
     descriptions = None
+
     @classmethod
     def process_request(cls, request):
         data = cls.validate_xml_upload(request)
@@ -16,6 +17,12 @@ class RequestHandler:
 
     @classmethod
     def validate_xml_upload(cls, request):
+        """
+        description: validates that a file and been uploaded and that the files is in .xml format. Also, reads()
+        and decode() the uploaded file into a string object.
+        :param request: Flask request object
+        :return: str() representation of the uploaded .xml file
+        """
         try:
             file = request.files['saml_file']
         except Exception as e:
@@ -29,7 +36,13 @@ class RequestHandler:
 
     @classmethod
     def dict_parse_xml(cls, data):
+        """
+        description: attempts to parse the str(.xml file) into a dict() via xmltodict.parse()
+        :param data: str() representation of .xml file
+        :return: dict() representation of .xml file
+        """
         try:
+            # converting orderedDict() to dict()
             return dict(xmltodict.parse(data))
         except Exception as e:
             raise XMLParsingError('Error parsing XML: ' + str(e))

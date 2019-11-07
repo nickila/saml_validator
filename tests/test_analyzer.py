@@ -1,9 +1,12 @@
 import pytest
 from collections import OrderedDict
 from backend_app.analyzer import Analyzer
-from backend_app.error_handler import XMLParsingError, SamlParsingError
+from backend_app.error_handler import SamlParsingError
 
-from backend_app.response_builder import ResponseBuilder
+
+# Placeholder for test on Analyzer.get_attribute_value()
+def test_get_attribute_value():
+    pass
 
 
 def test_parse_saml(saml_file_dict, saml2_file_dict, saml_parsed_dict, saml2_parsed_dict):
@@ -19,32 +22,6 @@ def test_parse_saml(saml_file_dict, saml2_file_dict, saml_parsed_dict, saml2_par
     # asserts SamlParsingError exception is thrown when no saml values are found
     with pytest.raises(SamlParsingError):
         Analyzer.parse_saml({'saml3p': {}})
-
-
-def test_construct_result(saml_parsed_dict, descriptions):
-    errors = {'assertion_attributes': {'description': 'Assertion must include FirstName, LastName, and Email'},
-              'name_id': {'descriptions': 'Name-ID attribute must be present with unspecified or emailAddress format'},
-              'name_id_format': {'description': 'Name-ID requires unspecified or emailAddress format'},
-              'signing_cert': {'description': 'Signing cert not present'}}
-
-    result = ResponseBuilder.construct_response(saml_parsed_dict, descriptions, errors)
-    expected = {'assertion_attributes': {
-        'value': {'LastName': 'user_lastname', 'FirstName': 'user_firstname', 'Email': 'user_email@example.com',
-                  'Other': 'other attribute'},
-        'errors_found': {'description': 'Assertion must include FirstName, LastName, and Email'}},
-                'name_id': {'value': 'user_email@example.com', 'errors_found': {
-                    'descriptions': 'Name-ID attribute must be present with unspecified or emailAddress format'}},
-                'name_id_format': {'value': 'urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress', 'errors_found': {
-                    'description': 'Name-ID requires unspecified or emailAddress format'}},
-                'destination': {'value': 'https://https://adobe-location-from_meta'},
-                'issuer_url': {'value': 'https://https://adobe-entity-id'},
-                'signature_method_algorithm': {'value': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1'},
-                'digest_method_algorithm': {'value': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1'},
-                'not_before': {'value': '2019-08-21T18:30:58Z'}, 'time_sent': {'value': '2019-08-21T18:36:29Z'},
-                'not_on_or_after': {'value': '2019-08-21T18:36:28Z'},
-                'signing_cert': {'value': 'MIIEA..saml..signing..cert..M=',
-                                 'errors_found': {'description': 'Signing cert not present'}}}
-    assert result == expected
 
 
 def test_create_error_dict(saml_parsed_dict, descriptions, idp_repo):
@@ -66,35 +43,6 @@ def test_create_error_dict(saml_parsed_dict, descriptions, idp_repo):
     saml_parsed_dict['assertion_attributes'] = {'astName': 'wrong', 'FirstName': 'right', 'Email': 'right'}
     result = Analyzer.create_error_dict(saml_parsed_dict, descriptions.get('error_message'), idp_repo['adfs'])
     assert 'assertion_attributes' in result
-
-
-@pytest.fixture
-def saml_parsed_dict():
-    return {
-        'assertion_attributes': {'LastName': 'user_lastname', 'FirstName': 'user_firstname',
-                                 'Email': 'user_email@example.com',
-                                 'Other': 'other attribute'}, 'name_id': 'user_email@example.com',
-        'name_id_format': 'urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress',
-        'destination': 'https://https://adobe-location-from_meta', 'issuer_url': 'https://https://adobe-entity-id',
-        'signature_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
-        'digest_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1', 'not_before': '2019-08-21T18:30:58Z',
-        'time_sent': '2019-08-21T18:36:29Z', 'not_on_or_after': '2019-08-21T18:36:28Z',
-        'signing_cert': 'MIIEA..saml..signing..cert..M='}
-
-
-@pytest.fixture
-def saml2_parsed_dict():
-    return {'assertion_attributes': {'FirstName': 'user_firstname', 'LastName': 'user_lastname',
-                                     'Email': 'user_email@example.com'},
-            'name_id': 'user_email@example.com',
-            'name_id_format': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
-            'destination': 'https://federatedid-na1.services.adobe.com/federated/saml/SSO',
-            'issuer_url': 'https://federatedid-na1.services.adobe.com/federated/saml/metadata',
-            'signature_method_algorithm': 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
-            'digest_method_algorithm': 'http://www.w3.org/2000/09/xmldsig#sha1',
-            'not_before': '2019-10-01T21:19:26.284Z', 'time_sent': '2019-10-01T21:24:26.284Z',
-            'not_on_or_after': '2019-10-01T21:29:26.284Z',
-            'signing_cert': 'MIIEA..saml2..signing..cert..M='}
 
 
 @pytest.fixture

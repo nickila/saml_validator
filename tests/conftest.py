@@ -2,6 +2,37 @@ import pytest
 
 
 @pytest.fixture
+def saml_parsed_dict():
+    return {
+        'assertion_attributes': {'LastName': 'user_lastname', 'FirstName': 'user_firstname',
+                                 'Email': 'user_email@example.com',
+                                 'Other': 'other attribute'}, 'name_id': 'user_email@example.com',
+        'name_id_format': 'urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress',
+        'destination': 'https://https://adobe-location-from_meta', 'issuer_url': 'https://https://adobe-entity-id',
+        'signature_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
+        'digest_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1', 'not_before': '2019-08-21T18:30:58Z',
+        'time_sent': '2019-08-21T18:36:29Z', 'not_on_or_after': '2019-08-21T18:36:28Z',
+        'signing_cert': 'MIIEA..saml..signing..cert..M=',
+        'in_response_to': 'InResponseTo_value'}
+
+
+@pytest.fixture
+def saml2_parsed_dict():
+    return {'assertion_attributes': {'FirstName': 'user_firstname', 'LastName': 'user_lastname',
+                                     'Email': 'user_email@example.com'},
+            'name_id': 'user_email@example.com',
+            'name_id_format': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+            'destination': 'https://federatedid-na1.services.adobe.com/federated/saml/SSO',
+            'issuer_url': 'https://federatedid-na1.services.adobe.com/federated/saml/metadata',
+            'signature_method_algorithm': 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
+            'digest_method_algorithm': 'http://www.w3.org/2000/09/xmldsig#sha1',
+            'not_before': '2019-10-01T21:19:26.284Z', 'time_sent': '2019-10-01T21:24:26.284Z',
+            'not_on_or_after': '2019-10-01T21:29:26.284Z',
+            'signing_cert': 'MIIEA..saml2..signing..cert..M=',
+            'in_response_to': 'InResponseTo_value'}
+
+
+@pytest.fixture
 def descriptions():
     return {'metadata': {'issuer_url': 'Must match Entity ID attribute value from Adobe Metadata',
                          'destination': 'Must match Location attribute value from Adobe Metadata',
@@ -24,45 +55,90 @@ def descriptions():
 
 @pytest.fixture
 def idp_repo():
-    return {'adfs': {'name': 'adfs',
-                     'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html',
-                     'error_codes': {
-                         'assertion_attributes': {'hint': 'Review Steps 8 - 14', 'link': '#ConfiguretheADFSserver'},
-                         'name_id': {'hint': 'Please review step 11', 'link': '#ConfiguretheADFSserver'},
-                         'name_id_format': {'hint': 'Please review step 11', 'link': '#ConfiguretheADFSserver'},
-                         'issuer_url': {'hint': 'Please review step 2', 'link': '#ConfiguretheADFSserver'},
-                         'destination': {'hint': 'Please review step 2', 'link': '#ConfiguretheADFSserver'},
-                         'signature_method': {'hint': 'Please review step 16', 'link': '#ConfiguretheADFSserver'},
-                         'digest_method': {'hint': 'Please review step 16',
-                                           'link': '#ConfiguretheADFSserver'}}},
-            'shibboleth': {'name': 'shibboleth',
-                           'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html',
-                           'error_codes': {
-                               'assertion_attributes': {
-                                   'hint': 'please review step 2 link 1 and step 1 from link2',
-                                   'link': [
-                                       '#ConfigureShibboleth',
-                                       '#TroubleshootyourShibbolethsetup']},
-                               'name_id': {
-                                   'hint': 'Please review step 11',
-                                   'link': '#TroubleshootyourShibbolethsetup'},
+    return {'adfs': {'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html',
+                     'error_codes': {'assertion_attributes': {'hint': 'Review Steps 8 - 14', 'links': [
+                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']},
+                                     'name_id': {'hint': 'Please review step 11', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']},
+                                     'name_id_format': {'hint': 'Please review step 11', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']},
+                                     'issuer_url': {'hint': 'Please review step 2', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']},
+                                     'destination': {'hint': 'Please review step 2', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']},
+                                     'signature_method': {'hint': 'Please review step 16', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']},
+                                     'digest_method': {'hint': 'Please review step 16', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-microsoft-ad-fs-with-sso.html#ConfiguretheADFSserver']}}},
+            'shibboleth': {'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html',
+                           'error_codes': {'assertion_attributes': {
+                               'hint': 'please review step 2 from links 1 and step 1 from links2', 'links': [
+                                   'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth',
+                                   'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#TroubleshootyourShibbolethsetup']},
+                               'name_id': {'hint': 'Please review step 11',
+                                           'links': ['#TroubleshootyourShibbolethsetup']},
                                'name_id_format': {
-                                   'hint': 'please review step 2 from link 1 and step 8 from link2',
-                                   'link': [
-                                       '#ConfigureShibboleth',
-                                       '#TroubleshootyourShibbolethsetup']},
-                               'issuer_url': {
-                                   'hint': 'Please review step 3',
-                                   'link': '#ConfigureShibboleth'},
-                               'destination': {
-                                   'hint': 'Please review step 3',
-                                   'link': '#ConfigureShibboleth'}}}
-
-        , 'azure': {'name': 'azure',
-                    'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html',
-                    'error_codes': {
-                        'assertion_attributes': {'hint': 'Review Steps 8 - 14', 'link': '#ConfiguretheADFSserver'},
-                        'name_id': {'hint': 'Please review step 11', 'link': '#ConfiguretheADFSserver'},
-                        'name_id_format': {'hint': None, 'link': None}, 'issuer_url': {'hint': None, 'link': None},
-                        'destination': {'hint': None, 'link': None}, 'signature_method': {'hint': None, 'link': None},
-                        'digest_method': {'hint': None, 'link': None}}}}
+                                   'hint': 'please review step 2 from links 1 and step 8 from links2',
+                                   'links': [
+                                       'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth',
+                                       'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#TroubleshootyourShibbolethsetup']},
+                               'issuer_url': {'hint': 'Please review step 3', 'links': [
+                                   'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth']},
+                               'destination': {'hint': 'Please review step 3', 'links': [
+                                   'https://helpx.adobe.com/enterprise/kb/configure-shibboleth-with-adobe-sso.html#ConfigureShibboleth']}}},
+            'azure': {'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html',
+                      'error_codes': {'assertion_attributes': {'hint': 'Review Steps 8 - 9', 'links': [
+                          'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe']},
+                                      'name_id': {'hint': 'Review Step 9 "note"', 'links': [
+                                          'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe']},
+                                      'name_id_format': {'hint': 'Review Step 9 "note"', 'links': [
+                                          'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe']},
+                                      'issuer_url': {'hint': 'Review Steps 7, 20, 21', 'links': [
+                                          'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe']},
+                                      'destination': {'hint': 'Review Steps 7, 20, 21', 'links': [
+                                          'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe']},
+                                      'signing_cert': {'hint': 'Review Steps 10, 15, 16', 'links': [
+                                          'https://helpx.adobe.com/enterprise/kb/configure-microsoft-azure-with-adobe-sso.html#CreatingSSOApplicationinAzureforAdobe']}}},
+            'okta': {'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html',
+                     'error_codes': {'assertion_attributes': {'hint': 'Review Step 2', 'links': [
+                         'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta']},
+                                     'name_id': {'hint': 'Review Step 2', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta']},
+                                     'issuer_url': {'hint': 'Review Step 4 from links1 and Steps 4, 5 from links2',
+                                                    'links': [
+                                                        'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#DownloadthesecuritycertificatefromOkta',
+                                                        'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta']},
+                                     'destination': {'hint': 'Review Step 4 from links1 and Steps 4, 5 from links2',
+                                                     'links': [
+                                                         'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#DownloadthesecuritycertificatefromOkta',
+                                                         'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#ConfigureOkta']},
+                                     'signing_cert': {'hint': 'Review Step 1-4', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-okta-with-adobe-sso.html#DownloadthesecuritycertificatefromOkta']}}},
+            'google': {'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html',
+                       'error_codes': {'assertion_attributes': {'hint': 'Review Steps 2 - 3', 'links': [
+                           'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole']},
+                                       'name_id': {'hint': 'Review Step 1', 'links': [
+                                           'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole']},
+                                       'name_id_format': {'hint': 'Review Step 1', 'links': [
+                                           'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole']},
+                                       'issuer_url': {'hint': 'Review Step 4 from links1 and Step 1 from links 2',
+                                                      'links': [
+                                                          'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfigureAdobeAdminConsole',
+                                                          'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole']},
+                                       'destination': {'hint': 'Review Step 4 from links1 and Step 1 from links 2 ',
+                                                       'links': [
+                                                           'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfigureAdobeAdminConsole',
+                                                           'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#ConfiguretheGoogleAdminConsole']},
+                                       'signing_cert': {'hint': 'Review step 2', 'links': [
+                                           'https://helpx.adobe.com/enterprise/kb/configure-google-with-adobe-sso.html#SetupGoogleAdminConsole']}}},
+            'wso2': {'helpx': 'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html',
+                     'error_codes': {'assertion_attributes': {'hint': 'Review Step 6, and 10.5', 'links': [
+                         'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider']},
+                                     'name_id': {'hint': 'Please review step 6', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider']},
+                                     'name_id_format': {'hint': 'Please review step 6 and 10.3', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider']},
+                                     'issuer_url': {'hint': 'Please review step 7, 10.1', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider']},
+                                     'destination': {'hint': 'Please review step 7, 10.2', 'links': [
+                                         'https://helpx.adobe.com/enterprise/kb/configure-wso2-idp-adobe-sso.html#Registernewserviceprovider']}}}}
