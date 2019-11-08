@@ -25,14 +25,20 @@ class RequestHandler:
         """
         try:
             file = request.files['saml_file']
+            # x = file.read()
+            # print()
         except Exception as e:
             raise FileUploadError('No file found. Please upload an xml saml trace ' + str(e))
         if 'xml' not in file.content_type and 'xml' not in file.mimetype:
             raise FileUploadError('.xml format required')
         try:
-            return file.read().decode()
+            data = file.read()
         except Exception as e:
             raise FileUploadError('Error reading and decoding XML file ' + str(e))
+        try:
+            return data.decode()
+        except AttributeError:
+            return data
 
     @classmethod
     def dict_parse_xml(cls, data):

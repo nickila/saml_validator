@@ -1,0 +1,76 @@
+<saml2p:Response
+    Destination="https://https://adobe-location-from_meta"
+    ID="_99393939318625161c6444e4d44f14b93bcc7571373743748" InResponseTo="id18283838494959494949"
+    IssueInstant="2019-08-21T18:36:29Z" Version="2.0" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+    xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol">
+    <saml2:Issuer>idp_issuer_value</saml2:Issuer>
+    <ds:Signature xmlns:ds="https://www.w3.org/adobe">
+        <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="https://www.w3.org/adobe"/>
+            <ds:SignatureMethod Algorithm="https://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <ds:Reference URI="#_8007e618625161c6444e4d44f14b93bcc7571c5858">
+                <ds:Transforms><ds:Transform Algorithm="https://www.w3.org/adobe"/><ds:Transform Algorithm="https://www.w3.org/adobe"/></ds:Transforms><ds:DigestMethod Algorithm="https://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <ds:DigestValue>FDRDW5mqPtYzQL4Pv+MhE25R4cY=</ds:DigestValue>
+            </ds:Reference>
+        </ds:SignedInfo>
+        <ds:SignatureValue>Hd4cHWcotwGjekGSh2vx8kgAx1wZqPy0zrXU3rSIp7xb2XcwiZM5ITKKWTv9nhe+mMs41bB+0vzR9m5tcbsx9samyfje86TtWCcUllFsPWVnHuyfkXOn5m7ZqQZEhYouhhsx1aZwnYZ9W3a5I4aEUWbwKPP45AcuzI7KW95eIfwJ35FLz82umhAab7aFd03Pb40d+vawjJ2nBubvAUfPE6xk+LauQluy63OXyOiEKAfU16gjBuN28Qc0hAMKuFr5+BjlIHbDBSNYV2tE87HuxaNBoAtta4GS5yJPotQ33ke2906J00aXCwyThZDSBvYZ91SToSjojiLLdXKgZg==</ds:SignatureValue>
+        <ds:KeyInfo>
+            <ds:X509Data>
+                <ds:X509Certificate>MIIEA_signing_cert_saml2</ds:X509Certificate>
+            </ds:X509Data>
+        </ds:KeyInfo>
+    </ds:Signature>
+    <saml2p:Status><saml2p:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success"/></saml2p:Status>
+    <saml2:Assertion ID="_e45bd072774477tt0267a545abdf631dc4c83" IssueInstant="2019-08-21T18:31:28Z"
+        Version="2.0" xmlns:xs="https://www.w3.org/adobe"
+        xmlns:xsi="https://www.w3.org/adobe">
+        <saml2:Issuer>https://adobe-entity-id</saml2:Issuer>
+        <ds:Signature xmlns:ds="https://www.w3.org/adobe/com">
+            <ds:SignedInfo><ds:CanonicalizationMethod Algorithm="https://www.w3.org/adobe"/>
+                <ds:SignatureMethod Algorithm="https://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                <ds:Reference URI="#_e45ddkk44Tej116af998f30r7272727373abdf631dc4c83">
+                    <ds:Transforms><ds:Transform Algorithm="https://www.w3.org/adobe"/><ds:Transform Algorithm="https://www.w3.org/adobe"/></ds:Transforms><ds:DigestMethod Algorithm="https://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                    <ds:DigestValue>jejeEE+kXKXwf5qCNPpKrti2d=</ds:DigestValue>
+                </ds:Reference>
+            </ds:SignedInfo>
+            <ds:SignatureValue>HxqM1vsGyN6rqrRhC2h84291k633kdkdjf7ejejeTTTTzzwjddjdMkOwuYvrn0DVkHljeeididdijjrrjrjrTTT73367484p6WGMT6OiEQJuDWPdkpl9vDqAxiDcBf55NUw7OypU3hQCQLTx9AcOLtMjtnCAOqiI0q9NDBbQXln0uj1YKYtw==</ds:SignatureValue>
+            <ds:KeyInfo>
+                <ds:X509Data>
+                    <ds:X509Certificate>MIIEA_signing_cert_saml2</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </ds:Signature>
+        <saml2:Subject>
+            <saml2:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
+                SPNameQualifier="service-provider-name-qualifier-value">22334384CCCCE66c123</saml2:NameID>
+            <saml2:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"><saml2:SubjectConfirmationData InResponseTo="id12571430288981441996829275"
+                NotOnOrAfter="2019-08-21T18:36:28Z"
+                Recipient="recipient_value"/></saml2:SubjectConfirmation>
+        </saml2:Subject>
+        <saml2:Conditions NotBefore="2019-08-21T18:30:58Z" NotOnOrAfter="2019-08-21T18:36:28Z">
+            <saml2:AudienceRestriction>
+                <saml2:Audience>https://https://adobe-entity-id</saml2:Audience>
+            </saml2:AudienceRestriction>
+        </saml2:Conditions>
+        <saml2:AuthnStatement AuthnInstant="2019-08-21T18:31:28Z"
+            SessionIndex="_a5eecd3b5738a5ea770533f77c18b48cf007d84f1b"
+            SessionNotOnOrAfter="2019-08-22T02:31:28Z">
+            <saml2:AuthnContext>
+                <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml2:AuthnContextClassRef>
+            </saml2:AuthnContext>
+        </saml2:AuthnStatement>
+        <saml2:AttributeStatement>
+            <saml2:Attribute Name="LastName">
+                <saml2:AttributeValue xsi:type="xs:string">example_last_name</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="FirstName">
+                <saml2:AttributeValue xsi:type="xs:string">example_first_name</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="Email">
+                <saml2:AttributeValue xsi:type="xs:string">email@example.edu</saml2:AttributeValue>
+            </saml2:Attribute>
+            <saml2:Attribute Name="Other">
+                <saml2:AttributeValue xsi:type="xs:string">other attribute</saml2:AttributeValue>
+            </saml2:Attribute>
+        </saml2:AttributeStatement>
+    </saml2:Assertion>
+</saml2p:Response>

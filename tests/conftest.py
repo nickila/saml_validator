@@ -3,33 +3,30 @@ import pytest
 
 @pytest.fixture
 def saml_parsed_dict():
-    return {
-        'assertion_attributes': {'LastName': 'user_lastname', 'FirstName': 'user_firstname',
-                                 'Email': 'user_email@example.com',
-                                 'Other': 'other attribute'}, 'name_id': 'user_email@example.com',
-        'name_id_format': 'urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress',
-        'destination': 'https://https://adobe-location-from_meta', 'issuer_url': 'https://https://adobe-entity-id',
-        'signature_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
-        'digest_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1', 'not_before': '2019-08-21T18:30:58Z',
-        'time_sent': '2019-08-21T18:36:29Z', 'not_on_or_after': '2019-08-21T18:36:28Z',
-        'signing_cert': 'MIIEA..saml..signing..cert..M=',
-        'in_response_to': 'InResponseTo_value'}
+    return {'assertion_attributes': {'LastName': 'example_last_name', 'FirstName': 'example_first_name',
+                                     'Email': 'email@example.edu', 'Other': 'other attribute'},
+            'name_id': '22334384CCCCE66c123', 'name_id_format': 'urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress',
+            'destination': 'https://https://adobe-location-from_meta', 'issuer_url': 'https://https://adobe-entity-id',
+            'signature_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
+            'digest_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
+            'not_before': '2019-08-21T18:30:58Z', 'time_sent': '2019-08-21T18:36:29Z',
+            'not_on_or_after': '2019-08-21T18:36:28Z',
+            'signing_cert': 'MIIEA_signing_cert_saml',
+            'in_response_to': 'id18283838494959494949'}
 
 
 @pytest.fixture
 def saml2_parsed_dict():
-    return {'assertion_attributes': {'FirstName': 'user_firstname', 'LastName': 'user_lastname',
-                                     'Email': 'user_email@example.com'},
-            'name_id': 'user_email@example.com',
-            'name_id_format': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
-            'destination': 'https://federatedid-na1.services.adobe.com/federated/saml/SSO',
-            'issuer_url': 'https://federatedid-na1.services.adobe.com/federated/saml/metadata',
-            'signature_method_algorithm': 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
-            'digest_method_algorithm': 'http://www.w3.org/2000/09/xmldsig#sha1',
-            'not_before': '2019-10-01T21:19:26.284Z', 'time_sent': '2019-10-01T21:24:26.284Z',
-            'not_on_or_after': '2019-10-01T21:29:26.284Z',
-            'signing_cert': 'MIIEA..saml2..signing..cert..M=',
-            'in_response_to': 'InResponseTo_value'}
+    return {'assertion_attributes': {'LastName': 'example_last_name', 'FirstName': 'example_first_name',
+                                     'Email': 'email@example.edu', 'Other': 'other attribute'},
+            'name_id': '22334384CCCCE66c123', 'name_id_format': 'urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress',
+            'destination': 'https://https://adobe-location-from_meta', 'issuer_url': 'https://https://adobe-entity-id',
+            'signature_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
+            'digest_method_algorithm': 'https://www.w3.org/2000/09/xmldsig#rsa-sha1',
+            'not_before': '2019-08-21T18:30:58Z', 'time_sent': '2019-08-21T18:36:29Z',
+            'not_on_or_after': '2019-08-21T18:36:28Z',
+            'signing_cert': 'MIIEA_signing_cert_saml2',
+            'in_response_to': 'id18283838494959494949'}
 
 
 @pytest.fixture

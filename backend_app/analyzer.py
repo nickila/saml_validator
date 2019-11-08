@@ -79,7 +79,7 @@ class Analyzer:
         return value
 
     @classmethod
-    def create_error_dict(cls, saml_values, descriptions, idp_info):
+    def create_error_dict(cls, saml_values, descriptions, idp_info={}):
         """
         description: Compares saml values with the common errors below
         :type saml_values: dict(parsed saml values from xml upload)
@@ -87,7 +87,6 @@ class Analyzer:
         :type idp_info: dict(session specific idp info from resources/idp.yml )
         :rtype: errors dict(saml errors found)
         """
-        # errors = {'helpx': idp_info.get('helpx')}
         errors = {}
         idp_info = idp_info.get('error_codes', {})
         # Checks if assertion attributes are being released
