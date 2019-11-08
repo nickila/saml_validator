@@ -1,11 +1,6 @@
 import pytest
-import flask
-from flask import Request
-import os
 from unittest.mock import MagicMock
-
 from werkzeug.datastructures import FileStorage
-
 from backend_app.request_handler import RequestHandler
 
 
