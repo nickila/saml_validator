@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import "../index.css";
-import axios from "axios";
-import Select from "../components/Select";
 import Button from "../components/Button";
-import Table from "../components/Table";
 import API from "../utils/API";
+import PropTypes from "prop-types";
 
 class Form extends Component {
     constructor(props) {
@@ -15,7 +13,7 @@ class Form extends Component {
             idp_name: "",
             data: [],
             file: null,
-            idpOptions: ["ADFS", "Azure", "Google", "Shibboleth", "WSO2", "Okta", "Other"]
+            idpOptions: ["ADFS", "Azure", "Google", "Shibboleth", "WSO2", "Okta", "Other"],
         }
         this.handleUpload = this.handleUpload.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -59,75 +57,80 @@ class Form extends Component {
 
         API.postData(formdata)
             .then((res)=> {
-                this.setState({data: res.data})
+                this.setState({data: res.data});
+                this.props.callback(this.state.data);
         }, (err)=> {
             console.log(err)
         })
     }
+ 
 
     render() {
         return (
-                <div className={"row"}>
-                    <div className={"col-md-10 mx-auto"}>
-                            <form>
-                                <div className="form-row">
-                                    <div className="col-7">
-                                        <div className="input-group mb-3 field">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text">XML</span>
-                                            </div>
-                                            <div className="custom-file">
-                                                <input
-                                                    type="file"
-                                                    name="file"
-                                                    className="custom-file-input"
-                                                    id="inputGroupFile01"
-                                                    onChange={(e)=>this.handleFile(e)}
-                                                />
-                                                    <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.file !== null ? this.state.file.name : "Choose an XML file..."}</label>
-                                            </div>
+            <div className={"row"}>
+                <div className={"col-md-10 mx-auto"}>
+                        <form>
+                            <div className="form-row">
+                                <div className="col-7">
+                                    <div className="input-group mb-3 field">
+                                        <div className="input-group-prepend">
+                                            <span className="input-group-text">XML</span>
+                                        </div>
+                                        <div className="custom-file">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                className="custom-file-input"
+                                                id="inputGroupFile01"
+                                                onChange={(e)=>this.handleFile(e)}
+                                            />
+                                                <label className="custom-file-label" htmlFor="inputGroupFile01">{this.state.file !== null ? this.state.file.name : "Choose an XML file..."}</label>
                                         </div>
                                     </div>
-
-                                    <div className="col-3 field">
-                                        <select
-                                            className="form-control"
-                                            name="idp_name"
-                                            value={this.state.idp_name}
-                                            onChange={this.handleInputChange}
-                                        >
-                                        <option className={"grey-text"}>Select IDP...</option>
-                                        <option value="adfs">AD FS</option>
-                                        <option value="azure">Azure</option>
-                                        <option value="shibboleth">Shibboleth</option>
-                                        <option value="google">Google</option>
-                                        <option value="wso2">WSO2</option>
-                                        <option value="okta">Okta</option>
-                                        <option value="other">Other</option>
-                                        </select>
-                                        {/*<Select title={"idp"}*/}
-                                        {/*    name={"idp_name"}*/}
-                                        {/*    options = {this.state.idpOptions}*/}
-                                        {/*    value={this.state.idp_name}*/}
-                                        {/*    placeholder={"Select IDP..."}*/}
-                                        {/*    handleChange={this.handleInputChange}*/}
-                                        {/*/>*/}
-                                    </div>
-                                    <div className={"col field"}>
-                                        {/*<button type="button" className="btn btn-warning mb-2" onClick={(e)=>this.handleUpload(e)}>SUBMIT</button>*/}
-                                        <Button title={"SUBMIT"}
-                                            action={(e)=>this.handleUpload(e)}
-                                            className="btn btn-warning mb-2"
-                                        />
-                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                    {/*<TestGet />*/}
-                    <Table res={this.state.data} />
-                </div>
+
+                                <div className="col-3 field">
+                                    <select
+                                        className="form-control"
+                                        name="idp_name"
+                                        value={this.state.idp_name}
+                                        onChange={this.handleInputChange}
+                                    >
+                                    <option className={"grey-text"}>Select IDP...</option>
+                                    <option value="adfs">AD FS</option>
+                                    <option value="azure">Azure</option>
+                                    <option value="shibboleth">Shibboleth</option>
+                                    <option value="google">Google</option>
+                                    <option value="wso2">WSO2</option>
+                                    <option value="okta">Okta</option>
+                                    <option value="other">Other</option>
+                                    </select>
+                                    {/*<Select title={"idp"}*/}
+                                    {/*    name={"idp_name"}*/}
+                                    {/*    options = {this.state.idpOptions}*/}
+                                    {/*    value={this.state.idp_name}*/}
+                                    {/*    placeholder={"Select IDP..."}*/}
+                                    {/*    handleChange={this.handleInputChange}*/}
+                                    {/*/>*/}
+                                </div>
+                                <div className={"col field"}>
+                                    {/*<button type="button" className="btn btn-warning mb-2" onClick={(e)=>this.handleUpload(e)}>SUBMIT</button>*/}
+                                    <Button title={"SUBMIT"}
+                                        action={(e)=>this.handleUpload(e)}
+                                        className="btn btn-warning mb-2"
+                                    />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </div>
         )
     }
+
+    
+}
+Form.protoTypes = {
+    callback : PropTypes.func,
 }
 
 export default Form;
