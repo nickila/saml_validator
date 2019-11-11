@@ -8,12 +8,10 @@ class App extends Component {
   render() {
     return (
         <Router>
-          <div>
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route component={NoMatch} />
               </Switch>
-          </div>
         </Router>
     );
   }

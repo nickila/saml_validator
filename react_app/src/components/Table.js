@@ -26,8 +26,8 @@ class Table extends Component {
             jsonArr.pop();
 
             return (
-                <div className={'container'}>
                     <div className={"row"}>
+                        <div className="col-md-10 mx-auto">
                         <table className={"table-bordered"}>
                             <thead>
                             <tr>

@@ -3,6 +3,7 @@ import "../index.css";
 import Button from "../components/Button";
 import API from "../utils/API";
 import PropTypes from "prop-types";
+import Select from "../components/Select";
 
 class Form extends Component {
     constructor(props) {
@@ -13,34 +14,19 @@ class Form extends Component {
             idp_name: "",
             data: [],
             file: null,
-            idpOptions: ["ADFS", "Azure", "Google", "Shibboleth", "WSO2", "Okta", "Other"],
+            idpOptions: ["adfs", "azure", "google", "shibboleth", "wso2", "okta", "other"],
         }
         this.handleUpload = this.handleUpload.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
 
     }
 
-    handleInputChange = event => {
+    handleInputChange(event) {
         const {name, value} = event.target;
-        this.setState({
-            [name]: value
-        });
-    };
-
-    // handleInputChange(event) {
-    //     const {name, value} = event.target;
-    //     this.setState(prevState => ({
-    //         idp_name:
-    //             {
-    //                 ...prevState.idp_name, [name]: value
-    //             }
-    //     }), () => console.log(event))
-    // }
-
-    // handleChange(event) {
-    //     this.setState({value: event.target.value});
-    //     event.preventDefault();
-    // }
+        this.setState(prevState => ({
+            ...prevState.idp_name, [name]: value    
+        }))
+    }
 
     handleFile(e) {
         let file = e.target.files[0];
@@ -54,6 +40,7 @@ class Form extends Component {
         let formdata = new FormData();
         formdata.append('saml_file', file);
         formdata.append('idp_name', idp_name);
+        console.log(formdata);
 
         API.postData(formdata)
             .then((res)=> {
@@ -67,11 +54,10 @@ class Form extends Component {
 
     render() {
         return (
-            <div className={"row"}>
-                <div className={"col-md-10 mx-auto"}>
+         
                         <form>
-                            <div className="form-row">
-                                <div className="col-7">
+                            <div className="form-row justify-content-md-center">
+                                <div className="col-5">
                                     <div className="input-group mb-3 field">
                                         <div className="input-group-prepend">
                                             <span className="input-group-text">XML</span>
@@ -80,7 +66,7 @@ class Form extends Component {
                                             <input
                                                 type="file"
                                                 name="file"
-                                                className="custom-file-input"
+                                                className="custom-file-input mb-5"
                                                 id="inputGroupFile01"
                                                 onChange={(e)=>this.handleFile(e)}
                                             />
@@ -89,32 +75,17 @@ class Form extends Component {
                                     </div>
                                 </div>
 
-                                <div className="col-3 field">
-                                    <select
-                                        className="form-control"
-                                        name="idp_name"
-                                        value={this.state.idp_name}
-                                        onChange={this.handleInputChange}
-                                    >
-                                    <option className={"grey-text"}>Select IDP...</option>
-                                    <option value="adfs">AD FS</option>
-                                    <option value="azure">Azure</option>
-                                    <option value="shibboleth">Shibboleth</option>
-                                    <option value="google">Google</option>
-                                    <option value="wso2">WSO2</option>
-                                    <option value="okta">Okta</option>
-                                    <option value="other">Other</option>
-                                    </select>
-                                    {/*<Select title={"idp"}*/}
-                                    {/*    name={"idp_name"}*/}
-                                    {/*    options = {this.state.idpOptions}*/}
-                                    {/*    value={this.state.idp_name}*/}
-                                    {/*    placeholder={"Select IDP..."}*/}
-                                    {/*    handleChange={this.handleInputChange}*/}
-                                    {/*/>*/}
+                                <div className="col-2 field">
+                                    <Select title={"idp"}
+                                       name={"idp_name"}
+                                       options = {this.state.idpOptions}
+                                       value={this.state.idp_name}
+                                       placeholder={"Select IDP..."}
+                                       handleChange={this.handleInputChange}
+                                       className="form-control mb-2"
+                                    />
                                 </div>
-                                <div className={"col field"}>
-                                    {/*<button type="button" className="btn btn-warning mb-2" onClick={(e)=>this.handleUpload(e)}>SUBMIT</button>*/}
+                                <div className={"col-2 field"}>
                                     <Button title={"SUBMIT"}
                                         action={(e)=>this.handleUpload(e)}
                                         className="btn btn-warning mb-2"
@@ -122,8 +93,7 @@ class Form extends Component {
                                 </div>
                             </div>
                         </form>
-                    </div>
-            </div>
+             
         )
     }
 

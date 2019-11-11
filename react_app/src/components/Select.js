@@ -2,14 +2,14 @@ import React from "react";
 
 const Select = (props) => {
     return(
-        <div className={"from-group"}>
-            <label htmlFor={props.name}>{props.title}</label>
+        <div className={"form-group"}>
             <select
                 name={props.name}
                 value={props.value}
-                onChange={props.handleInputChange}
+                onChange={props.handleChange}
+                className={props.className}
                 >
-                <option value="" disabled>{props.placeholder}</option>
+                <option>{props.placeholder}</option>
                 {props.options.map(option => {
                 return(
                     <option
