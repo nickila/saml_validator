@@ -7,6 +7,8 @@ class Analyzer:
     def process(cls, saml_dict, descriptions, idp_info):
         saml_values = cls.parse_saml(saml_dict)
         errors = cls.create_error_dict(saml_values, descriptions.get('error_message'), idp_info.get('error_codes', {}))
+        helpx = idp_info.get('helpx')
+        errors['helpx'] = helpx
         return ResponseBuilder.construct_response(saml_values, descriptions.get('metadata'), errors)
 
     @classmethod

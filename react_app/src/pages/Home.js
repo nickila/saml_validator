@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Form from "../components/Form"
+import UploadForm from "../components/UploadForm"
 import Title from "../components/Title";
-import Table from "../components/Table";
+import ResultTable from "../components/ResultTable";
+import Container from "react-bootstrap/Container";
 
 class Home extends Component {
     constructor() {
@@ -18,11 +19,11 @@ class Home extends Component {
     }
     render() {
         return (
-            <div className={"container-fluid"}>
+            <Container fluid>
                 <Title />
-                <Form callback={this.formData.bind(this)} />
-                <Table res={this.state.data} />
-            </div>
+                <UploadForm callback={this.formData.bind(this)} />
+                <ResultTable res={this.state.data} />
+            </Container>
         )
     }
 }

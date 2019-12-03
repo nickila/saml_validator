@@ -14,5 +14,6 @@ class ResponseBuilder:
             if descriptions.get(attribute):
                 result[attribute]['description'] = descriptions.get(attribute)
             if errors.get(attribute):
+                result[attribute]['helpx'] = errors.get('helpx')
                 result[attribute]['errors_found'] = errors.get(attribute)
         return result

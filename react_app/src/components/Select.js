@@ -2,7 +2,6 @@ import React from "react";
 
 const Select = (props) => {
     return(
-        <div className={"form-group"}>
             <select
                 name={props.name}
                 value={props.value}
@@ -15,12 +14,13 @@ const Select = (props) => {
                     <option
                         key={option}
                         value={option}
-                        label={option}>{option}
+                        label={option}
+                    >
+                        {option}
                     </option>
                 );
                 })}
             </select>
-        </div>
     )
 }
 

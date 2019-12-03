@@ -86,9 +86,34 @@ td {
 }
 
 .error {
-  color: #ee0f00;
+  color: #ff4617;
+  background-color: rgba(255, 230, 232, 0.8);
 }
 
 th {
   padding: 3px 1px 5px 10px;
+}
+
+.modal-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+.modal-header .close {
+  text-align: right;
+}
+
+.full-value-link {
+  color:#007bff;
+  cursor: pointer;
+}
+
+.full-value-link:hover {
+  color:#004c9e;
+  text-decoration: underline;
+}
+
+.title-symbols {
+  color: #ffc107;
 }

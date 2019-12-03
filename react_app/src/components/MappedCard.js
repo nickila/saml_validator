@@ -1,8 +1,11 @@
 import React from "react";
 import "../index.css";
 
+/**
+ * @return {null}
+ */
 function MapCards(props) {
-    if(props.res.assertion_attributes) {
+    if (props.res.assertion_attributes) {
         console.log(props.res);
         let keyArr = [];
         let errorArr = [];
@@ -29,8 +32,10 @@ function MapCards(props) {
                 <div className="card-body">
                     <p className="card-text value">{jsonData[key].value}</p>
                     <p className="card-text description">{jsonData[key].description}</p>
-                    <p className="card-text error-description">{jsonData[key].errors_found.description}<span className={"error-hint"}> ({jsonData[key].errors_found.hint})</span>
-                    <a href={jsonData[key].errors_found.link} className="card-text error-link">{jsonData[key].errors_found.link}</a>
+                    <p className="card-text error-description">{jsonData[key].errors_found.description}<span
+                        className={"error-hint"}> ({jsonData[key].errors_found.hint})</span>
+                        <a href={jsonData[key].errors_found.link}
+                           className="card-text error-link">{jsonData[key].errors_found.link}</a>
                     </p>
                 </div>
             </div>
@@ -44,16 +49,16 @@ function MapCards(props) {
                 </div>
             </div>
         );
-         const certCard =
-                <div className="card cert-card">
-                    <div className="card-header">
-                        signing_cert
-                    </div>
-                    <div className="card-body">
-                        <p className="card-text value">{certValue}</p>
-                        <p className="card-text description">{certDesc}</p>
-                    </div>
-                </div>;
+        const certCard =
+            <div className="card cert-card">
+                <div className="card-header">
+                    signing_cert
+                </div>
+                <div className="card-body">
+                    <p className="card-text value">{certValue}</p>
+                    <p className="card-text description">{certDesc}</p>
+                </div>
+            </div>;
 
         return (
             <div>
@@ -66,11 +71,8 @@ function MapCards(props) {
                 </div>
             </div>
         )
-    } else {
-        return (
-            <div></div>
-        )
     }
+    return null;
 }
 
 export default MapCards;
